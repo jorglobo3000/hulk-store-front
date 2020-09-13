@@ -5,6 +5,7 @@ import { KardexService } from '../../servicio/kardex.service';
 import { Producto } from '../../modelo/Producto';
 import { ProductoService } from '../../servicio/producto.service';
 import { Kardex } from '../../modelo/kardex';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -27,7 +28,9 @@ export class KardexComponent implements OnInit {
   productos: Producto[] = [];
   producto: Producto = null;
 
-  constructor(private kardexServicio: KardexService, private productoService: ProductoService) { }
+  constructor(private kardexServicio: KardexService,
+     private _snackBar: MatSnackBar,
+    private productoService: ProductoService) { }
 
   ngOnInit(): void {
 
@@ -46,13 +49,20 @@ export class KardexComponent implements OnInit {
       (movimientos) => {
         this.dataSource = new MatTableDataSource<Kardex>(movimientos);
         console.log(movimientos);
-        this.paginador.length = this.dataSource.length;
+        this.paginador.length = movimientos.length;
         this.dataSource.paginator = this.paginador;
-        if (this.dataSource != null) {
-          this.length = this.dataSource.length;
+       console.log(this.dataSource != null);
+       console.log(this.dataSource.length>0);
+       console.log(this.dataSource.length);
+       console.log(movimientos.length);
+        if (movimientos!= null && movimientos.length>0) {
+          console.log("ingresa a if");
+          this.length = movimientos.length;
           this.existenRegistros = true;
         }
         else {
+          console.log("ingresa a else");
+          this.openSnackBar("No existen movimientos para el producto","");
           this.existenRegistros = false;
         }
       }
@@ -72,4 +82,9 @@ export class KardexComponent implements OnInit {
     );
   }
 
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
 }
