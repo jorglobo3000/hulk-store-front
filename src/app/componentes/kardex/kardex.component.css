@@ -1,0 +1,12 @@
+.contenido-centrado{
+    width:70%; 
+    margin: auto;
+}
+
+.contenedor{
+    height:550px; overflow:auto; width: 100%; 
+}
+
+.titulo{
+    width: 100%; text-align: center;
+}
