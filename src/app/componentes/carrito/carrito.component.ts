@@ -23,7 +23,7 @@ export class CarritoComponent implements OnInit, AfterViewInit {
 
   carritoCompras: Documento = null;
 
-  displayedColumns: string[] = ['id', 'producto', 'cantidad', 'precio', 'subtotal'];
+  displayedColumns: string[] = ['id', 'producto', 'cantidad', 'precio', 'subtotal', 'acciones'];
   dataSource;
   pageSize = 2;
   length = 0;
@@ -54,6 +54,10 @@ export class CarritoComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit() {
+    this.cargarDataSourcePaginador();
+  }
+
+  cargarDataSourcePaginador(){
     this.paginador.length = this.carritoCompras.detalle.length;
     this.dataSource.paginator = this.paginador;
 
@@ -116,5 +120,19 @@ export class CarritoComponent implements OnInit, AfterViewInit {
       duration: 2000,
     });
   }
+
+  borrarItem(elemento){
+    console.log(this.carritoCompras.detalle);
+   
+    this.removeItemArray(this.carritoCompras.detalle, elemento);
+    console.log(this.carritoCompras.detalle);
+    this.cargarDataSourcePaginador();
+    this.calcularTotales();
+  }
+
+  removeItemArray = ( array, item ) => {
+    var i = array.indexOf( item );
+    i !== -1 && array.splice( i, 1 );
+};
 
 }

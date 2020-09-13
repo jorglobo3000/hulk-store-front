@@ -1,0 +1,13 @@
+.contenido-centrado{
+    text-align: center;
+}
+
+.contenedor{
+    width: 70%; 
+    margin: auto;
+}
+
+.boton-comprar{
+    float: right;
+    margin-right: 1em;
+}
