@@ -21,4 +21,9 @@ export class ProductoService {
     let url=Constantes.URL_BASE_API+Constantes.URL_PRODUCTOS+"stock/"+id.toString();
     return this.http.get<number>(url);
   }
+
+  getPorId(id:number):Observable<Producto>{
+    return this.http.get<Producto>(Constantes.URL_BASE_API+Constantes.URL_PRODUCTOS+"listar/"+id); 
+  }
+  
 }

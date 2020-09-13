@@ -11,5 +11,6 @@ export class Kardex {
     precioUnitario: number
     saldoCantidad: number;
     saldoPrecioUnitario: number;
-    tipoMovimiento: string
+    tipoMovimiento: string;
+    detalle:string
 }

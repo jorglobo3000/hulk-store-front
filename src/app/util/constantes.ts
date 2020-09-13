@@ -7,6 +7,7 @@ export const Constantes = Object.freeze({
     MENSAJE_INSUFICIENTE_STOCK_DISPONIBLE:'Solo puede seleccionar la cantidad de: ',
     URL_BASE_API:'http://localhost:8080/api/',
     URL_PRODUCTOS:'productos/',
-    URL_PERSONAS:'clientes/'
+    URL_PERSONAS:'clientes/',
+    URL_KARDEX: 'kardex/'
 
 })

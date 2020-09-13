@@ -33,7 +33,10 @@ export class ProductoComponent implements OnInit {
   cantidad = 0;
 
   @ViewChild(MatPaginator) paginador: MatPaginator;
-  constructor(private productoService: ProductoService, public dialog: MatDialog, private _snackBar: MatSnackBar, private data: DataServicio) { }
+  constructor(private productoService: ProductoService, 
+    public dialog: MatDialog, 
+    private _snackBar: MatSnackBar, 
+    private data: DataServicio) { }
 
   ngOnInit(): void {
     if (this.carrito.detalle == null) {
