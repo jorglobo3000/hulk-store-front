@@ -19,10 +19,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { KardexComponent } from './componentes/kardex/kardex.component';
 import { CarritoComponent } from './componentes/carrito/carrito.component';
 import { RouterModule, Routes } from '@angular/router';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
-  {path:'', component:ProductoComponent},
+  { path: '', component: ProductoComponent },
   { path: 'productos', component: ProductoComponent },
   { path: 'carrito', component: CarritoComponent },
   { path: 'kardex', component: KardexComponent }
@@ -56,7 +57,8 @@ const routes: Routes = [
     MatInputModule,
     MatDialogModule,
     FormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatCheckboxModule
   ],
   providers: [ProductoService],
   bootstrap: [AppComponent]

@@ -6,6 +6,7 @@ export const Constantes = Object.freeze({
     MENSAJE_PRODUCTO_ANADIDO_CARRITO:'Producto añadido al carrito',
     MENSAJE_INSUFICIENTE_STOCK_DISPONIBLE:'Solo puede seleccionar la cantidad de: ',
     URL_BASE_API:'http://localhost:8080/api/',
-    URL_PRODUCTOS:'productos/'
+    URL_PRODUCTOS:'productos/',
+    URL_PERSONAS:'clientes/'
 
 })

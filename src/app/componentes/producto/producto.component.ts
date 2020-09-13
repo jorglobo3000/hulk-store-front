@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { Producto } from '../../modelo/Producto';
 import { ProductoService } from '../../servicio/producto.service';
+import { DataServicio } from '../../servicio/data.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Documento, DetalleDocumento } from '../../modelo/documento';
@@ -21,6 +22,7 @@ export interface DialogData {
 })
 export class ProductoComponent implements OnInit {
 
+
   displayedColumns: string[] = ['id', 'nombre', 'stock', 'precio', 'anadir'];
   dataSource;
   pageSize = 2;
@@ -31,7 +33,7 @@ export class ProductoComponent implements OnInit {
   cantidad = 0;
 
   @ViewChild(MatPaginator) paginador: MatPaginator;
-  constructor(private productoService: ProductoService, public dialog: MatDialog, private _snackBar: MatSnackBar) { }
+  constructor(private productoService: ProductoService, public dialog: MatDialog, private _snackBar: MatSnackBar, private data: DataServicio) { }
 
   ngOnInit(): void {
     if (this.carrito.detalle == null) {
@@ -65,22 +67,23 @@ export class ProductoComponent implements OnInit {
         if (stockProducto == 0) {
           this.openSnackBar(Constantes.MENSAJE_NO_STOCK_DISPONIBLE, "");
         }
-        else if (stockProducto.toString() >= this.cantidad.toString()) {
+        else if (stockProducto>= this.cantidad) {
           this.carrito.estado = Constantes.ESTADO_ACTIVO;
           this.carrito.tipoDocumento = Constantes.TIPO_DOCUMENTO_CARRITO;
           let detalle: DetalleDocumento = new DetalleDocumento();
           detalle.producto = elemento;
           detalle.cantidad = this.cantidad;
           detalle.estado = Constantes.ESTADO_ACTIVO;
+          
           detalle.subtotalProducto = elemento.precioVenta * this.cantidad;
           this.carrito.detalle.push(detalle);
-         
+
           this.openSnackBar(Constantes.MENSAJE_PRODUCTO_ANADIDO_CARRITO, "");
         }
         else {
           this.openSnackBar(Constantes.MENSAJE_INSUFICIENTE_STOCK_DISPONIBLE + stockProducto, "");
         }
-    });
+      });
   }
 
 
@@ -94,6 +97,7 @@ export class ProductoComponent implements OnInit {
       if (!(typeof result === 'undefined')) {
         this.cantidad = result;
         if (this.cantidad > 0) {
+          console.log("cantidad "+this.cantidad);
           this.anadirACarrito(elemento);
         }
       }
@@ -105,6 +109,14 @@ export class ProductoComponent implements OnInit {
       duration: 2000,
     });
   }
+
+  verCarrito() {
+    this.carrito.subtotal=0;
+    this.carrito.iva=0;
+    this.carrito.total=0;
+    this.data.carrito = this.carrito;
+  }
+
 }
 
 
