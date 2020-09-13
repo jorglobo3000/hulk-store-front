@@ -40,6 +40,9 @@ export class ProductoComponent implements OnInit {
       this.carrito.detalle = [];
     }
     this.dataSource = new MatTableDataSource<any>();
+    this.carrito.subtotal=0;
+    this.carrito.total=0;
+    this.carrito.total=0;
     this.cargarProductos();
   }
 
@@ -77,7 +80,7 @@ export class ProductoComponent implements OnInit {
           
           detalle.subtotalProducto = elemento.precioVenta * this.cantidad;
           this.carrito.detalle.push(detalle);
-
+          this.calcularTotales();
           this.openSnackBar(Constantes.MENSAJE_PRODUCTO_ANADIDO_CARRITO, "");
         }
         else {
@@ -115,6 +118,18 @@ export class ProductoComponent implements OnInit {
     this.carrito.iva=0;
     this.carrito.total=0;
     this.data.carrito = this.carrito;
+  }
+
+  calcularTotales() {
+    this.carrito.subtotal = 0;
+    this.carrito.iva = 0;
+    this.carrito.total = 0;
+    this.carrito.detalle.forEach(element => {
+      this.carrito.subtotal += element.subtotalProducto;
+    });
+
+    this.carrito.iva = this.carrito.subtotal * 0.12;
+    this.carrito.total = this.carrito.subtotal + this.carrito.iva;
   }
 
 }

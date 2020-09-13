@@ -5,6 +5,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { PersonaService } from '../../servicio/persona.service';
 import { Persona } from '../../modelo/persona';
+import { DocumentoService } from '../../servicio/documento.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface FormaPago {
   value: string;
@@ -32,13 +34,14 @@ export class CarritoComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginador: MatPaginator;
   consumidorFinal: boolean = true;
   formasPago: FormaPago[] = [
-    {value: 'EFECTIVO', viewValue: 'Pago en efectivo'},
-    {value: 'DEBITO', viewValue: 'Debito bancario'},
-    {value: 'CREDITO', viewValue: 'Tarjeta de credito'},
-    {value: 'CHEQUE', viewValue: 'Cheque'}
+    { value: 'EFECTIVO', viewValue: 'Pago en efectivo' },
+    { value: 'DEBITO', viewValue: 'Debito bancario' },
+    { value: 'CREDITO', viewValue: 'Tarjeta de credito' },
+    { value: 'CHEQUE', viewValue: 'Cheque' }
   ];
 
-  constructor(private data: DataServicio, private personaServicio: PersonaService) { }
+  constructor(private data: DataServicio, private personaServicio: PersonaService,
+     private documentoServicio: DocumentoService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -96,8 +99,22 @@ export class CarritoComponent implements OnInit, AfterViewInit {
 
   }
 
-  comprar(){
+  comprar() {
+    this.carritoCompras.persona = this.persona;
+    this.documentoServicio.realizarVentaACliente(this.carritoCompras).subscribe(
+      (documento) => {
+        if(documento!=null ){
+          this.openSnackBar("Compra realizada con exito","");
+        }
+      }
+    );
     console.log("compraremos");
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 
 }

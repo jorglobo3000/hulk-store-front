@@ -1,0 +1,23 @@
+.contenido-centrado{
+    width:70%; 
+    margin: auto;
+}
+
+.contenedor{
+    height:550px; overflow:auto; width: 100%; 
+}
+
+.titulo{
+    width: 100%; text-align: center;
+}
+
+.totales {
+    border-radius: 15px;
+    border: 1px solid #E0DBE6;
+    padding: 20px; 
+    width: 40%;
+    height: 180px;  
+    text-align: right !important; 
+    float:right !important;
+    margin-top:2em;
+  }

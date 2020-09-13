@@ -1,5 +1,15 @@
-<div style="height:350px; overflow:auto; width: 100%; ">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width:70%; margin: auto">
+<div class="contenedor">
+
+    <div class="contenido-centrado">
+        <div class="titulo">
+            <h2>Bienvenido a Hulk Store</h2>
+            <h4>Seleccione los productos y las cantidades que desea comprar, 
+                luego vaya al carrito para completar o eliminar productos del carrito</h4>
+        </div>
+
+    </div>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" class="contenido-centrado">
 
 
         <ng-container matColumnDef="id">
@@ -41,9 +51,49 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-    <mat-paginator [pageSize]="pageSize" showFirstLastButtons [pageSizeOptions]="[2, 5, 10, 20]" style="width: 70%;margin:auto">
+    <mat-paginator [pageSize]="pageSize" showFirstLastButtons [pageSizeOptions]="[2, 5, 10, 20]" class="contenido-centrado">
     </mat-paginator>
-</div>
-<button mat-stroked-button color="primary" routerLink="/carrito" style="position: absolute; top: 5em; right:  10px;" (click)="verCarrito()" >Ver carrito de compras
 
+
+
+    <div class="contenido-centrado">
+        <div class="totales">
+            <h2>Totales</h2>
+            <table style="float: right">
+                <tr>
+                    <td>
+                        <h3>Subtotal:</h3>
+                    </td>
+                    <td>
+                        <h3 style="padding-left: 5em"> {{carrito.subtotal}}</h3>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>
+                        <h3>Iva:</h3>
+                    </td>
+                    <td>
+                        <h3 style="padding-left: 5em"> {{carrito.iva}}</h3>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <h3>Total:</h3>
+                    </td>
+                    <td>
+                        <h3 style="padding-left: 5em"> {{carrito.total}}</h3>
+                    </td>
+
+                </tr>
+
+            </table>
+        </div>
+
+    </div>
+</div>
+<button mat-stroked-button color="primary" routerLink="/carrito" style="position: absolute; top: 5em; right:  10px;" (click)="verCarrito()">Ver carrito de compras
+    <em class="material-icons">shopping_cart</em>
 </button>

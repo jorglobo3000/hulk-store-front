@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,7 +20,8 @@ import { KardexComponent } from './componentes/kardex/kardex.component';
 import { CarritoComponent } from './componentes/carrito/carrito.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
@@ -60,8 +61,10 @@ const routes: Routes = [
     FormsModule,
     MatSnackBarModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
+    MDBBootstrapModule
   ],
+  schemas:[NO_ERRORS_SCHEMA],
   providers: [ProductoService],
   bootstrap: [AppComponent]
 })
