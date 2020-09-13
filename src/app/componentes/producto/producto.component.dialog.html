@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Añadir al carrito el producto: {{data.nombre}}</h1>
+<mat-dialog-content >
+  <p>Por favor ingrese la cantidad</p>
+  <mat-form-field>
+    <mat-label>Cantidad</mat-label>
+    <input matInput [(ngModel)]="data.cantidad" type="number">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="data.cantidad" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>
