@@ -12,6 +12,7 @@ export class PersonaService {
   constructor(private http: HttpClient) { }
 
   getPersonaPorIdentificacion(identificacion:string):Observable<Persona> {
+    console.log( Constantes.URL_BASE_API+Constantes.URL_PERSONAS+"listar/"+identificacion);
     return this.http.get<Persona>( Constantes.URL_BASE_API+Constantes.URL_PERSONAS+"listar/"+identificacion);
   }
 

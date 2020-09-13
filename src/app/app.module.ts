@@ -20,6 +20,7 @@ import { KardexComponent } from './componentes/kardex/kardex.component';
 import { CarritoComponent } from './componentes/carrito/carrito.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatSelectModule} from '@angular/material/select';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
@@ -58,7 +59,8 @@ const routes: Routes = [
     MatDialogModule,
     FormsModule,
     MatSnackBarModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSelectModule
   ],
   providers: [ProductoService],
   bootstrap: [AppComponent]
