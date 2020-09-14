@@ -82,7 +82,7 @@
 
 
                     <td>
-                        <div style="margin-left: 5em" *ngIf="data.usuario!=null">
+                        <div style="margin-left: 5em" class="totales" *ngIf="data.usuario!=null">
                             <mat-form-field appearance="fill">
                                 <mat-label>Forma de pago</mat-label>
                                 <mat-select [(ngModel)]="carritoCompras.formaPago" (selectionChange)="onSelectFormaPagoChange()">
@@ -95,7 +95,7 @@
                             <br>
                             <mat-form-field appearance="standard" *ngIf="verCampoNumeroTarjeta">
                                 <mat-label>Numero tarjeta</mat-label>
-                                <input matInput placeholder="Numero tarjeta" [(ngModel)]="carritoCompras.numeroTarjeta">
+                                <input matInput placeholder="Numero tarjeta" type="number" [(ngModel)]="carritoCompras.numeroTarjeta">
                                 <em class="material-icons" matSuffix>payment</em>
                                 <mat-hint></mat-hint>
                             </mat-form-field>

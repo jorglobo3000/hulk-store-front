@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Constantes } from '../../util/constantes';
 import { ProductoService } from '../../servicio/producto.service';
+import Swal from 'sweetalert2';
 
 interface FormaPago {
   value: string;
@@ -123,22 +124,40 @@ export class CarritoComponent implements OnInit, AfterViewInit {
   }
 
   comprar() {
-    if (this.data.usuario != null) {
-      this.router.navigate(["/carrito"]);
-    }
-    else {
-      this.router.navigate(["/login"]);
-    }
-    this.carritoCompras.persona = this.data.usuario;
-    this.documentoServicio.realizarVentaACliente(this.carritoCompras).subscribe(
-      (documento) => {
-        if (documento != null) {
-          this.data.carrito = null;
-          this.openSnackBar("Compra realizada con exito", "");
-          this.router.navigate(["/"]);
-        }
+
+    if (this.validarDatos()) {
+      if (this.data.usuario != null) {
+        this.router.navigate(["/carrito"]);
       }
-    );
+      else {
+        this.router.navigate(["/login"]);
+      }
+      this.carritoCompras.persona = this.data.usuario;
+      this.documentoServicio.realizarVentaACliente(this.carritoCompras).subscribe(
+        (documento) => {
+          if (documento != null) {
+            this.data.carrito = null;
+            this.openSnackBar("Compra realizada con exito", "");
+            this.router.navigate(["/"]);
+          }
+        }
+      );
+    }
+  }
+
+  validarDatos(): any {
+    let valido: boolean = true;
+    if (this.carritoCompras.formaPago == null) {
+      Swal.fire("Error", "Debe elegir una forma de pago", 'error');
+      valido = false;
+    }
+    if (this.carritoCompras.formaPago == 'DEBITO' || this.carritoCompras.formaPago == 'CREDITO') {
+      if (this.carritoCompras.numeroTarjeta == null) {
+        Swal.fire("Error", "Debe ingresar el numero de tarjeta", 'error');
+        valido = false;
+      }
+    }
+    return valido;
   }
 
   openSnackBar(message: string, action: string) {
@@ -194,6 +213,7 @@ export class CarritoComponent implements OnInit, AfterViewInit {
         }
         else {
           elemento.cantidad = elemento.cantidad - 1;
+          Swal.fire("Advertencia", Constantes.MENSAJE_INSUFICIENTE_STOCK_DISPONIBLE + stockProducto, 'warning');
           this.openSnackBar(Constantes.MENSAJE_INSUFICIENTE_STOCK_DISPONIBLE + stockProducto, "");
         }
       });

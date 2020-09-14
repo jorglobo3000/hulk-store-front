@@ -83,7 +83,7 @@
                     <td class="espaciado-izquierda">
                         <mat-form-field appearance="standard">
                             <mat-label>Cantidad</mat-label>
-                            <input matInput placeholder="Cantidad" [disabled]="false" [(ngModel)]="detalleDocumento.cantidad">
+                            <input matInput placeholder="Cantidad" type="number" [disabled]="false" [(ngModel)]="detalleDocumento.cantidad">
 
                             <mat-hint></mat-hint>
                         </mat-form-field>
@@ -91,7 +91,7 @@
                     <td class="espaciado-izquierda">
                         <mat-form-field appearance="standard">
                             <mat-label>Precio unitario</mat-label>
-                            <input matInput placeholder="Precio unitario" [disabled]="false" [(ngModel)]="detalleDocumento.subtotalProducto">
+                            <input matInput placeholder="Precio unitario" type="number" [disabled]="false" [(ngModel)]="detalleDocumento.subtotalProducto">
 
                             <mat-hint></mat-hint>
                         </mat-form-field>
