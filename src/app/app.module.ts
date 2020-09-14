@@ -22,13 +22,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { LoginComponent } from './componentes/login/login.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: '', component: ProductoComponent },
   { path: 'productos', component: ProductoComponent },
   { path: 'carrito', component: CarritoComponent },
-  { path: 'kardex', component: KardexComponent }
+  { path: 'kardex', component: KardexComponent },
+  { path: 'login', component: LoginComponent },
+  { path: '**', component: AppComponent }
 ];
 
 
@@ -40,7 +44,8 @@ const routes: Routes = [
     FooterComponent,
     DialogAnadirCarrito,
     KardexComponent,
-    CarritoComponent
+    CarritoComponent,
+    LoginComponent
 
 
   ],
@@ -64,7 +69,7 @@ const routes: Routes = [
     MatSelectModule,
     MDBBootstrapModule
   ],
-  schemas:[NO_ERRORS_SCHEMA],
+  schemas: [NO_ERRORS_SCHEMA],
   providers: [ProductoService],
   bootstrap: [AppComponent]
 })

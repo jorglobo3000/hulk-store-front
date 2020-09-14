@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Documento } from '../modelo/documento';
-import { Observable } from 'rxjs';
+import { Persona } from '../modelo/persona';
 
 @Injectable({
     providedIn: 'root'
@@ -8,9 +8,11 @@ import { Observable } from 'rxjs';
 
 export class DataServicio {
     carrito: Documento = null;
+    usuario: Persona = null;
+    ruta: string = null;
     constructor() { }
 
-    getCarrito(){
+    getCarrito() {
         return this.carrito;
     }
 }

@@ -1,0 +1,11 @@
+.button {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .error {
+    padding: 16px;
+    width: 300px;
+    color: white;
+    background-color: red;
+  }

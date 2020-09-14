@@ -10,6 +10,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Constantes } from '../../util/constantes';
 
 
+
+
 export interface DialogData {
   cantidad: number;
   nombre: string;
@@ -36,7 +38,7 @@ export class ProductoComponent implements OnInit {
   constructor(private productoService: ProductoService, 
     public dialog: MatDialog, 
     private _snackBar: MatSnackBar, 
-    private data: DataServicio) { }
+    public data: DataServicio) { }
 
   ngOnInit(): void {
     if (this.carrito.detalle == null) {
@@ -121,6 +123,7 @@ export class ProductoComponent implements OnInit {
     this.carrito.iva=0;
     this.carrito.total=0;
     this.data.carrito = this.carrito;
+    
   }
 
   calcularTotales() {

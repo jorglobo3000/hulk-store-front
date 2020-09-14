@@ -1,0 +1,33 @@
+<mat-card>
+    <mat-card-title>Login</mat-card-title>
+    <mat-card-content>
+        
+            <p>
+                <mat-form-field appearance="standard">
+                    <mat-label>Nombre de usuario</mat-label>
+                    <input type="text" matInput placeholder="Username" [(ngModel)]="username">
+                    <em class="material-icons" matSuffix>payment</em>
+                    <mat-hint></mat-hint>
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field appearance="fill">
+                    <mat-label>Contraseña</mat-label>
+                    <input type="password" matInput placeholder="Password" [(ngModel)]="password" [type]="ocultar ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="ocultar = !ocultar" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="ocultar">
+                        <em class="material-icons" matSuffix>{{ocultar ? 'visibility_off' : 'visibility'}}</em>
+                    </button>
+                </mat-form-field>
+            </p>
+
+            <p *ngIf="error" class="error">
+                {{ error }}
+            </p>
+            
+            <div class="button">
+                <button type="submit" mat-button (click)="submit()">Ingresar</button>
+            </div>
+        
+    </mat-card-content>
+</mat-card>

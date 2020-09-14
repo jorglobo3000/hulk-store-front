@@ -6,7 +6,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { PersonaService } from '../../servicio/persona.service';
 import { Persona } from '../../modelo/persona';
 import { DocumentoService } from '../../servicio/documento.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar} from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 interface FormaPago {
   value: string;
@@ -30,6 +31,8 @@ export class CarritoComponent implements OnInit, AfterViewInit {
   currentPage: number = 0;
   existenRegistros: boolean = false;
   persona: Persona = new Persona();
+  ocultar: boolean = true;
+  verCampoNumeroTarjeta: boolean = false;
 
   @ViewChild(MatPaginator) paginador: MatPaginator;
   consumidorFinal: boolean = true;
@@ -40,16 +43,20 @@ export class CarritoComponent implements OnInit, AfterViewInit {
     { value: 'CHEQUE', viewValue: 'Cheque' }
   ];
 
+
   constructor(private data: DataServicio, private personaServicio: PersonaService,
-     private documentoServicio: DocumentoService, private _snackBar: MatSnackBar) { }
+    private documentoServicio: DocumentoService, private _snackBar: MatSnackBar,
+    private router: Router) { }
 
   ngOnInit(): void {
-
-
-
-    this.dataSource = new MatTableDataSource<any>();
-    this.cargarDetalles();
-    this.cargarPersona();
+    if (this.data.carrito != null && this.data.carrito.detalle.length>0) {
+      this.dataSource = new MatTableDataSource<any>();
+      this.cargarDetalles();
+      this.cargarPersona();
+    }
+    else{
+      this.router.navigate(["/productos"]);
+    }
   }
 
 
@@ -57,7 +64,7 @@ export class CarritoComponent implements OnInit, AfterViewInit {
     this.cargarDataSourcePaginador();
   }
 
-  cargarDataSourcePaginador(){
+  cargarDataSourcePaginador() {
     this.paginador.length = this.carritoCompras.detalle.length;
     this.dataSource.paginator = this.paginador;
 
@@ -104,11 +111,17 @@ export class CarritoComponent implements OnInit, AfterViewInit {
   }
 
   comprar() {
+    if (this.data.usuario != null) {
+      this.router.navigate(["/carrito"]);
+    }
+    else {
+      this.router.navigate(["/login"]);
+    }
     this.carritoCompras.persona = this.persona;
     this.documentoServicio.realizarVentaACliente(this.carritoCompras).subscribe(
       (documento) => {
-        if(documento!=null ){
-          this.openSnackBar("Compra realizada con exito","");
+        if (documento != null) {
+          this.openSnackBar("Compra realizada con exito", "");
         }
       }
     );
@@ -117,22 +130,46 @@ export class CarritoComponent implements OnInit, AfterViewInit {
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
-      duration: 2000,
+      duration: 3000,
     });
   }
 
-  borrarItem(elemento){
+  borrarItem(elemento) {
     console.log(this.carritoCompras.detalle);
-   
+
     this.removeItemArray(this.carritoCompras.detalle, elemento);
     console.log(this.carritoCompras.detalle);
+   
     this.cargarDataSourcePaginador();
     this.calcularTotales();
+    this.openSnackBar("Item borrado con éxito","");
+    if(this.carritoCompras.detalle.length<=0){
+      this.router.navigate(["/productos"]);
+    }
   }
 
-  removeItemArray = ( array, item ) => {
-    var i = array.indexOf( item );
-    i !== -1 && array.splice( i, 1 );
-};
+  removeItemArray = (array, item) => {
+    var i = array.indexOf(item);
+    i !== -1 && array.splice(i, 1);
+  };
+
+  onSelectFormaPagoChange() {
+    if (this.carritoCompras.formaPago == 'DEBITO' || this.carritoCompras.formaPago == 'CREDITO') {
+      this.verCampoNumeroTarjeta = true;
+    }
+    else {
+      this.verCampoNumeroTarjeta = false;
+    }
+  }
+
+  onConsumidorFinalCheckChange() {
+    this.consumidorFinal = !this.consumidorFinal;
+    if (this.consumidorFinal) {
+      this.cargarPersona();
+    }
+    else {
+      this.persona = this.data.usuario;
+    }
+  }
 
 }

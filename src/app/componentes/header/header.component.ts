@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataServicio } from '../../servicio/data.service';
 
 @Component({
   selector: 'app-header',
@@ -9,16 +10,24 @@ export class HeaderComponent implements OnInit {
 
   titulo: string = "Kulk Store";
   usuario: string = 'Invitado';
-  sesionActiva: boolean = false;
+  administrador: boolean = false;
   accionLogin: string = 'Iniciar sesión';
   accionLogout: string = 'Salir';
-  constructor() {
+  constructor(private dataServicio: DataServicio) {
   }
 
   ngOnInit(): void {
-    if (this.usuario != 'Invitado') {
-      this.sesionActiva = true;
+    if (this.dataServicio.usuario == null || typeof this.dataServicio.usuario === 'undefined') {
+      this.usuario = 'Invitado';
+    } else {
+      this.usuario = this.dataServicio.usuario.nombre;
     }
+
+  }
+
+  logout(){
+    this.dataServicio.usuario=null;
+    this.usuario='Invitado';
   }
 
 }

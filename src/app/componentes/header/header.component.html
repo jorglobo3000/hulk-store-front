@@ -6,11 +6,11 @@
     <div class="spacer"></div>
 
     <button mat-stroked-button color="primary" routerLink="/productos" routerLinkActive="active">Productos</button>
-    <button mat-stroked-button color="primary" routerLink="/kardex">Kardex</button>
-    <button mat-stroked-button color="primary" >Personas</button>
+    <button mat-stroked-button color="primary" routerLink="/kardex" *ngIf="administrador">Kardex</button>
+    <button mat-stroked-button color="primary" *ngIf="administrador">Personas</button>
     <button mat-stroked-button color="primary" routerLink="/carrito">Carrito</button>
-    <button mat-stroked-button color="primary">Ingresar</button>
-    <button mat-stroked-button color="primary">Salir</button>
+    <button mat-stroked-button color="primary" routerLink="/login" *ngIf="!administrador">Ingresar</button>
+    <button mat-stroked-button color="primary" routerLink="/" *ngIf="usuario!='Invitado'">Salir</button>
 
     
 </div>
