@@ -179,13 +179,17 @@ export class ProductoComponent implements OnInit {
     this.detalleDocumento = new DetalleDocumento();
     this.verAumentarStock = true;
   }
+
   comprarProducto() {
+
+    
+
     this.documentoServicio.realizarCompraAProveedor(this.detalleDocumento).subscribe(
       (detalleDocumento) => {
         this.detalleDocumento = detalleDocumento;
         this.openSnackBar("Stock aumentado correctamente", "");
         this.detalleDocumento = new DetalleDocumento();
-
+        this.cargarProductos();
       }
     );
 

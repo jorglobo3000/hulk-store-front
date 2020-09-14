@@ -8,9 +8,11 @@ export class Kardex {
     tipoOperacion: string;
     producto: string;//luego producto
     cantidad: number;
-    precioUnitario: number
+    precioUnitario: number;
+    total:number;
     saldoCantidad: number;
     saldoPrecioUnitario: number;
+    saldoTotal:number;
     tipoMovimiento: string;
     detalle:string
 }
