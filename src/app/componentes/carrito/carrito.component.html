@@ -3,7 +3,13 @@
         <h1 class="contenido-centrado">Carrito de compras</h1>
 
         <hr>
-        <div>
+        <h3>No existen productos agregados</h3>
+        <button mat-stroked-button color="primary" routerLink="/productos" class="boton-comprar" *ngIf="volverProductos">
+            Volver a productos
+            <em class="material-icons" matSuffix>keyboard_backspace</em>
+        </button>
+
+        <div *ngIf="!volverProductos">
             <table style="width: 100%">
                 <tr>
 
@@ -133,13 +139,13 @@
     </div>
 
 
-    <div class="contenedor">
+    <div class="contenedor" *ngIf="!volverProductos">
 
         <button mat-stroked-button color="primary" routerLink="/" (click)="comprar()" class="boton-comprar" *ngIf="data.usuario!=null">Comprar
             <em class="material-icons" matSuffix>done_all</em>
         </button>
         <button mat-stroked-button color="primary" routerLink="/login" class="boton-comprar" *ngIf="data.usuario==null">Continuar
-            <em class="material-icons" matSuffix>done_all</em>
+            <em class="material-icons" matSuffix>forward</em>
         </button>
 
     </div>
