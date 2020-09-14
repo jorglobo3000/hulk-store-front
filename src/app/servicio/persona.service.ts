@@ -20,4 +20,8 @@ export class PersonaService {
     let headers=new HttpHeaders().set('Content-Type', "application/json");
     return this.http.post<Persona>( Constantes.URL_BASE_API+Constantes.URL_PERSONAS+"login", persona,{headers:headers});
   }
+
+  getPorTipo(tipo:string):Observable<Persona[]>{
+    return this.http.get<Persona[]>( Constantes.URL_BASE_API+Constantes.URL_PERSONAS+"listar-tipo/"+tipo);
+  }
 }

@@ -1,7 +1,7 @@
 <app-menu></app-menu>
 <div class="contenedor">
 
-    <div class="contenido-centrado">
+    <div class="contenido-centrado"  *ngIf="!verAumentarStock">
         <div class="titulo">
             <h1>Bienvenido a Hulk Store</h1>
             <h3>Listado de productos</h3>
@@ -9,14 +9,14 @@
 
     </div>
     <div class="contenido-centrado">
-        <button mat-stroked-button color="primary" routerLink="/carrito" (click)="verCarrito()" *ngIf="esAdministrador">Nuevo producto
+        <button mat-stroked-button color="primary" routerLink="/carrito" (click)="verCarrito()" *ngIf="esAdministrador && !verAumentarStock">Nuevo producto
             <em class="material-icons">article</em>
         </button>
-        <button mat-stroked-button color="primary" routerLink="/carrito" (click)="verCarrito()" *ngIf="esAdministrador">Aumentar stock
+        <button mat-stroked-button color="primary" (click)="aumentarStock()" *ngIf="esAdministrador && !verAumentarStock">Aumentar stock
             <em class="material-icons">storage</em>
         </button>
     </div>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" class="contenido-centrado">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" class="contenido-centrado" *ngIf="!verAumentarStock">
 
 
         <ng-container matColumnDef="nombre">
@@ -41,7 +41,7 @@
             <td mat-cell *matCellDef="let element">
                 <div *ngIf="!esAdministrador">
                     <button mat-raised-button (click)="anadirACarrito(element)">
-                        <em class="material-icons">add_shopping_cart</em>
+                        <em class="material-icons" style="color:blue">add_shopping_cart</em>
                         <label></label>
                     </button>
                 </div>
@@ -52,8 +52,66 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-    <mat-paginator [pageSize]="pageSize" showFirstLastButtons [pageSizeOptions]="[2, 5, 10, 20]" class="contenido-centrado">
+    <mat-paginator *ngIf="!verAumentarStock" [pageSize]="pageSize" showFirstLastButtons [pageSizeOptions]="[2, 5, 10, 20]" class="contenido-centrado">
     </mat-paginator>
+
+
+    <div class="contenido-centrado" *ngIf="verAumentarStock">
+            <div class="titulo">
+                <h2>Bienvenido a Hulk Store</h2>
+                <h4>Ingrese los datos para aumentar stock
+                </h4>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <td>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Seleccione el producto</mat-label>
+                                <mat-select [(ngModel)]="detalleDocumento.producto">
+                                    <mat-option *ngFor="let producto of productos" [value]="producto">
+                                        {{producto.nombre}}
+                                    </mat-option>
+                                </mat-select>
+    
+                            </mat-form-field>
+    
+                        </td>
+                        <td class="espaciado-izquierda">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Cantidad</mat-label>
+                                <input matInput placeholder="Cantidad" [disabled]="false" [(ngModel)]="detalleDocumento.cantidad">
+    
+                                <mat-hint></mat-hint>
+                            </mat-form-field>
+                        </td>
+                        <td class="espaciado-izquierda">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Precio unitario</mat-label>
+                                <input matInput placeholder="Precio unitario" [disabled]="false" [(ngModel)]="detalleDocumento.subtotalProducto">
+    
+                                <mat-hint></mat-hint>
+                            </mat-form-field>
+                        </td>
+    
+    
+    
+                        <td class="espaciado-izquierda">
+                            <button mat-raised-button color="primary" (click)="comprarProducto()">Guardar
+                                <em class="material-icons">storage</em>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+    
+    
+            </div>
+    
+    
+    
+    
+    
+        </div>
 
 </div>
 <button mat-raised-button color="primary" style="position: absolute; top: 5em; right:  10px;"

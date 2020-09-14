@@ -2,7 +2,7 @@
     <div class="contenedor">
         <h1 class="contenido-centrado">Carrito de compras</h1>
 
-        <hr>
+        
         <h3 *ngIf="volverProductos">No existen productos agregados</h3>
         <button mat-stroked-button color="primary" routerLink="/productos" class="boton-comprar" *ngIf="volverProductos">
             Volver a productos
@@ -31,7 +31,7 @@
                                 <td mat-cell *matCellDef="let element">
 
                                     <div>
-                                        <button mat-icon-button color="primary" (click)="disminuirCantidad(element)">
+                                        <button mat-icon-button color="accent" (click)="disminuirCantidad(element)">
                                             <em class="material-icons">remove</em>
                                         </button>
                                         {{element.cantidad}} 
@@ -54,13 +54,13 @@
                             </ng-container>
 
                             <ng-container matColumnDef="acciones">
-                                <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                                <th mat-header-cell *matHeaderCellDef>  </th>
                                 <td mat-cell *matCellDef="let element">
                                     <table>
                                         <tr>
                                             <td>
                                                 <button mat-raised-button (click)="borrarItem(element)">
-                                                    <em class="material-icons">delete_forever</em>
+                                                    <em class="material-icons" style="color:red" >delete_forever</em>
                                                 </button>
                                             </td>
 
@@ -130,7 +130,7 @@
                                     <tr>
                                         <td>
                                             <hr>
-                                            <h2 style="text-align: left">Total:</h2>
+                                            <h2 style="text-align: left">Total a pagar:</h2>
                                         </td>
                                         <td>
                                             <hr>
@@ -157,7 +157,7 @@
 
     <div class="contenedor" *ngIf="!volverProductos">
         <button mat-stroked-button color="primary" routerLink="/productos" class="boton-comprar">
-            Añadir articulos
+            Añadir productos
             <em class="material-icons" matSuffix>add_shopping_cart</em>
         </button>
         <button mat-stroked-button color="primary" routerLink="/" (click)="comprar()" class="boton-comprar" *ngIf="data.usuario!=null">Comprar

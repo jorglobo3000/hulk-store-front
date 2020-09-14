@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Constantes } from '../util/constantes';
-import { Documento } from '../modelo/documento';
+import { Documento, DetalleDocumento } from '../modelo/documento';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@Angular/common/http';
 
@@ -14,12 +14,13 @@ export class DocumentoService {
 
   realizarVentaACliente(documento: Documento): Observable<Documento> {
     let headers = new HttpHeaders().set('Content-Type', "application/json");
-    return this.http.post<Documento>("http://localhost:8080/api/documentos/vender", documento, { headers: headers });
+    return this.http.post<Documento>(Constantes.URL_BASE_API+Constantes.URL_DOCUMENTOS +"vender", documento, { headers: headers });
   }
 
-  realizarCompraAProveedor(documento: Documento): Observable<Documento> {
+  realizarCompraAProveedor(documento: DetalleDocumento): Observable<DetalleDocumento> {
+    console.log(documento);
     let headers = new HttpHeaders().set('Content-Type', "application/json");
-    return this.http.post<Documento>("http://localhost:8080/api/documentos/vender", documento, { headers: headers });
+    return this.http.post<DetalleDocumento>(Constantes.URL_BASE_API+Constantes.URL_DOCUMENTOS+"comprar", documento, { headers: headers });
   }
 
 }

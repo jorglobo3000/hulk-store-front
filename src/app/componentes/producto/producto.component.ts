@@ -8,6 +8,7 @@ import { Documento, DetalleDocumento } from '../../modelo/documento';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Constantes } from '../../util/constantes';
+import { DocumentoService } from '../../servicio/documento.service';
 
 
 
@@ -34,12 +35,15 @@ export class ProductoComponent implements OnInit {
   esAdministrador: boolean = false;
   cantidad = 0;
   nombreBotonCarrito: string = null;
+  detalleDocumento: DetalleDocumento = new DetalleDocumento();
+  productos: Producto[] = [];
+  verAumentarStock: boolean = false;
 
   @ViewChild(MatPaginator) paginador: MatPaginator;
   constructor(private productoService: ProductoService,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
-    public data: DataServicio) { }
+    public data: DataServicio, private documentoServicio: DocumentoService) { }
 
   ngOnInit(): void {
 
@@ -64,13 +68,14 @@ export class ProductoComponent implements OnInit {
   }
 
   armarNombreBotonCarrito() {
-    this.nombreBotonCarrito = this.carrito.detalle.length.toString() + " Items | $ " + this.carrito.subtotal;
+    this.nombreBotonCarrito = this.carrito.detalle.length.toString() + " Productos | $ " + this.carrito.subtotal;
   }
 
   cargarProductos() {
     this.productoService.getProductos().subscribe(
       (productos) => {
         this.dataSource = new MatTableDataSource<Producto>(productos);
+        this.productos = productos;
         this.paginador.length = this.dataSource.length;
         this.dataSource.paginator = this.paginador;
 
@@ -168,6 +173,23 @@ export class ProductoComponent implements OnInit {
 
     this.carrito.iva = this.carrito.subtotal * 0.12;
     this.carrito.total = this.carrito.subtotal + this.carrito.iva;
+  }
+
+  aumentarStock() {
+    this.detalleDocumento = new DetalleDocumento();
+    this.verAumentarStock = true;
+  }
+  comprarProducto() {
+    this.documentoServicio.realizarCompraAProveedor(this.detalleDocumento).subscribe(
+      (detalleDocumento) => {
+      this.detalleDocumento = detalleDocumento;
+        this.openSnackBar("Stock aumentado correctamente", "");
+        this.verAumentarStock=false;
+      }
+    );
+
+    this.detalleDocumento = new DetalleDocumento();
+
   }
 
 }

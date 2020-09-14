@@ -12,6 +12,7 @@ export const Constantes = Object.freeze({
     URL_PRODUCTOS:'productos/',
     URL_PERSONAS:'clientes/',
     URL_KARDEX: 'kardex/',
-    URL_CATEGORIA: 'categorias/'
+    URL_CATEGORIAS: 'categorias/',
+    URL_DOCUMENTOS:'documentos/'
 
 })
