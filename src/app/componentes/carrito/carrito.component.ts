@@ -55,6 +55,9 @@ export class CarritoComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
     this.validarCarrito();
+    if (this.data.usuario != null) {
+      this.persona = this.data.usuario;
+    }
   }
 
   validarCarrito() {

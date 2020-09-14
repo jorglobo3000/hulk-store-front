@@ -1,3 +1,4 @@
+<app-menu></app-menu>
 <div style="width: 100%">
     <div class="contenedor">
         <h1 class="contenido-centrado">Carrito de compras</h1>
@@ -81,7 +82,7 @@
 
 
                     <td>
-                        <div style="margin-left: 5em">
+                        <div style="margin-left: 5em" *ngIf="data.usuario!=null">
                             <mat-form-field appearance="fill">
                                 <mat-label>Forma de pago</mat-label>
                                 <mat-select [(ngModel)]="carritoCompras.formaPago" (selectionChange)="onSelectFormaPagoChange()">
@@ -156,6 +157,9 @@
 
 
     <div class="contenedor" *ngIf="!volverProductos">
+
+        <h2 *ngIf="data.usuario==null" style="text-align: right !important">Para continuar con la compra debe ingresar o registrarse</h2>
+
         <button mat-stroked-button color="primary" routerLink="/productos" class="boton-comprar">
             Añadir productos
             <em class="material-icons" matSuffix>add_shopping_cart</em>

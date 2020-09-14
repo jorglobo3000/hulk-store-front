@@ -26,13 +26,27 @@ export class ProductoService {
     );
   }
 
-  getStock(id: number): Observable<any> {
+  getStock(id: number): Observable<number> {
     let url = Constantes.URL_BASE_API + Constantes.URL_PRODUCTOS + "stock/" + id.toString();
-    return this.http.get<number>(url);
+    return this.http.get<number>(url).pipe(
+      catchError(
+        e => {
+          Swal.fire('Error al obtener stock', e.error.mensaje, 'error');
+        return throwError(e);
+        }
+      )
+    );
   }
 
   getPorId(id: number): Observable<Producto> {
-    return this.http.get<Producto>(Constantes.URL_BASE_API + Constantes.URL_PRODUCTOS + "listar/" + id);
+    return this.http.get<Producto>(Constantes.URL_BASE_API + Constantes.URL_PRODUCTOS + "listar/" + id).pipe(
+      catchError(
+        e => {
+          Swal.fire('Error al obtener el producto por id', e.error.mensaje, 'error');
+        return throwError(e);
+        }
+      )
+    );
   }
 
 }
