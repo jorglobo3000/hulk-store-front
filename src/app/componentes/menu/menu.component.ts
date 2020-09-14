@@ -25,6 +25,7 @@ export class MenuComponent implements OnInit {
 
   logout() {
     this.dataServicio.usuario = null;
+    this.dataServicio.ruta="/productos";
     this.usuario = 'Invitado';
     this.administrador=false;
   }

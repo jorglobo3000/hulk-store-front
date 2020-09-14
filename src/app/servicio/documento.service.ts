@@ -18,7 +18,6 @@ export class DocumentoService {
   }
 
   realizarCompraAProveedor(documento: DetalleDocumento): Observable<DetalleDocumento> {
-    console.log(documento);
     let headers = new HttpHeaders().set('Content-Type', "application/json");
     return this.http.post<DetalleDocumento>(Constantes.URL_BASE_API+Constantes.URL_DOCUMENTOS+"comprar", documento, { headers: headers });
   }
