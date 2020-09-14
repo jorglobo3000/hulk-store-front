@@ -1,7 +1,7 @@
 <div style="width: 100%">
     <div class="contenedor">
         <h1 class="contenido-centrado">Carrito de compras</h1>
-        
+
         <hr>
         <div>
             <table style="width: 100%">
@@ -42,10 +42,29 @@
                             <ng-container matColumnDef="acciones">
                                 <th mat-header-cell *matHeaderCellDef> Acciones </th>
                                 <td mat-cell *matCellDef="let element">
-                                    <button mat-raised-button (click)="borrarItem(element)">
-                                        <em class="material-icons">delete_forever</em>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <button mat-raised-button (click)="borrarItem(element)">
+                                                    <em class="material-icons">delete_forever</em>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <button mat-raised-button (click)="disminuirCantidad(element)">
+                                                        <em class="material-icons">remove</em>
+                                                    </button>
+                                                    {{element.cantidad}}
+                                                    <button mat-raised-button (click)="aumentarCantidad(element)">
+                                                        <em class="material-icons">add</em>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
 
-                                    </button>
+                                    </table>
+
+
                                 </td>
                             </ng-container>
 
@@ -77,7 +96,7 @@
                             </mat-form-field>
                             <br>
 
-                               
+
                             <mat-form-field appearance="standard">
                                 <mat-label>Subtotal</mat-label>
                                 <input matInput placeholder="Subtotal" [disabled]="true" [(ngModel)]="carritoCompras.subtotal">
@@ -116,10 +135,10 @@
 
     <div class="contenedor">
 
-        <button mat-stroked-button color="primary" routerLink="/" (click)="comprar()" class="boton-comprar" *ngIf="data.usuario!=null">Proceder con compra
+        <button mat-stroked-button color="primary" routerLink="/" (click)="comprar()" class="boton-comprar" *ngIf="data.usuario!=null">Comprar
             <em class="material-icons" matSuffix>done_all</em>
         </button>
-        <button mat-stroked-button color="primary" routerLink="/login"  class="boton-comprar" *ngIf="data.usuario==null">Continuar
+        <button mat-stroked-button color="primary" routerLink="/login" class="boton-comprar" *ngIf="data.usuario==null">Continuar
             <em class="material-icons" matSuffix>done_all</em>
         </button>
 

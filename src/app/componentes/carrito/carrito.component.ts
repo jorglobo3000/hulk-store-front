@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { PersonaService } from '../../servicio/persona.service';
 import { Persona } from '../../modelo/persona';
 import { DocumentoService } from '../../servicio/documento.service';
-import { MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 interface FormaPago {
@@ -49,12 +49,12 @@ export class CarritoComponent implements OnInit, AfterViewInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    if (this.data.carrito != null && this.data.carrito.detalle.length>0) {
+    if (this.data.carrito != null && this.data.carrito.detalle.length > 0) {
       this.dataSource = new MatTableDataSource<any>();
       this.cargarDetalles();
       //this.cargarPersona();
     }
-    else{
+    else {
       this.router.navigate(["/productos"]);
     }
   }
@@ -140,11 +140,11 @@ export class CarritoComponent implements OnInit, AfterViewInit {
 
     this.removeItemArray(this.carritoCompras.detalle, elemento);
     console.log(this.carritoCompras.detalle);
-   
+
     this.cargarDataSourcePaginador();
     this.calcularTotales();
-    this.openSnackBar("Item borrado con éxito","");
-    if(this.carritoCompras.detalle.length<=0){
+    this.openSnackBar("Item borrado con éxito", "");
+    if (this.carritoCompras.detalle.length <= 0) {
       this.router.navigate(["/productos"]);
     }
   }
@@ -171,6 +171,17 @@ export class CarritoComponent implements OnInit, AfterViewInit {
     else {
       this.persona = this.data.usuario;
     }
+  }
+
+  aumentarCantidad(elemento) {
+    elemento.cantidad +=1;
+  }
+  disminuirCantidad(elemento) {
+    elemento.cantidad = elemento.cantidad - 1;
+    if (elemento.cantidad <= 0) {
+      elemento.cantidad = 1;
+    }
+    //validar stocK;
   }
 
 }

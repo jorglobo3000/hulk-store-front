@@ -32,6 +32,7 @@ export class ProductoComponent implements OnInit {
   currentPage: number = 0;
   existenRegistros: boolean = false;
   carrito: Documento = new Documento();
+  esAdministrador: boolean = false;
   cantidad = 0;
 
   @ViewChild(MatPaginator) paginador: MatPaginator;
@@ -41,6 +42,9 @@ export class ProductoComponent implements OnInit {
     public data: DataServicio) { }
 
   ngOnInit(): void {
+    if (this.data.usuario != null) {
+      this.esAdministrador = this.data.usuario.tipoPersona == 'ADM';
+    }
     if (this.carrito.detalle == null) {
       this.carrito.detalle = [];
     }
@@ -70,6 +74,7 @@ export class ProductoComponent implements OnInit {
   }
 
   anadirACarrito(elemento) {
+    this.cantidad = 1;
     this.productoService.getStock(elemento.id).subscribe(
       (stockProducto) => {
         if (stockProducto == 0) {

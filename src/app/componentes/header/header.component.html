@@ -2,15 +2,9 @@
 <div class="toolbar" role="banner">
     <img width="40" alt="Hulk store icon" src="https://cdn.iconscout.com/icon/premium/png-256-thumb/hulk-4-549700.png" />
     
-    <span routerLink="/productos">Hulk store</span>
+    <a routerLink="/productos">Hulk store</a>
     <div class="spacer"></div>
 
-    <button mat-stroked-button color="primary" routerLink="/productos" routerLinkActive="active">Productos</button>
-    <button mat-stroked-button color="primary" routerLink="/kardex" *ngIf="administrador">Kardex</button>
-    <button mat-stroked-button color="primary" *ngIf="administrador">Personas</button>
-    <button mat-stroked-button color="primary" routerLink="/carrito">Carrito</button>
-    <button mat-stroked-button color="primary" routerLink="/login" *ngIf="!administrador">Ingresar</button>
-    <button mat-stroked-button color="primary" routerLink="/" *ngIf="usuario!='Invitado'">Salir</button>
-
+    
     
 </div>

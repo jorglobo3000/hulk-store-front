@@ -23,6 +23,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { LoginComponent } from './componentes/login/login.component';
+import { MenuComponent } from './componentes/menu/menu.component';
 
 
 const routes: Routes = [
@@ -45,7 +46,8 @@ const routes: Routes = [
     DialogAnadirCarrito,
     KardexComponent,
     CarritoComponent,
-    LoginComponent
+    LoginComponent,
+    MenuComponent
 
 
   ],

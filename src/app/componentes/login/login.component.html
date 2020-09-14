@@ -1,7 +1,11 @@
-<mat-card>
-    <mat-card-title>Login</mat-card-title>
-    <mat-card-content>
-        
+<div class="contenedor">
+
+    <mat-card>
+        <mat-card-title>
+            <h2>Login</h2>
+        </mat-card-title>
+        <mat-card-content>
+
             <p>
                 <mat-form-field appearance="standard">
                     <mat-label>Nombre de usuario</mat-label>
@@ -24,10 +28,22 @@
             <p *ngIf="error" class="error">
                 {{ error }}
             </p>
-            
+
             <div class="button">
-                <button type="submit" mat-button (click)="submit()">Ingresar</button>
+                <button mat-raised-button (click)="submit()">
+                    <em class="material-icons">login</em>
+                    <label>Ingresar</label>
+                </button>
+
             </div>
-        
-    </mat-card-content>
-</mat-card>
+            <div class="button">
+                <button mat-raised-button >
+                    <em class="material-icons">how_to_reg</em>
+                    <label>Registrarse</label>
+                </button>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+
+</div>

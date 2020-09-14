@@ -1,6 +1,6 @@
 .button {
-    display: flex;
-    justify-content: flex-end;
+  float:right !important;
+  margin-top:2em;
   }
 
   .error {
@@ -9,3 +9,8 @@
     color: white;
     background-color: red;
   }
+
+  .contenedor{
+    width: 20%; 
+    margin: auto;
+}
