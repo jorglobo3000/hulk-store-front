@@ -182,15 +182,22 @@ export class ProductoComponent implements OnInit {
   comprarProducto() {
     this.documentoServicio.realizarCompraAProveedor(this.detalleDocumento).subscribe(
       (detalleDocumento) => {
-      this.detalleDocumento = detalleDocumento;
+        this.detalleDocumento = detalleDocumento;
         this.openSnackBar("Stock aumentado correctamente", "");
-        this.verAumentarStock=false;
+        this.detalleDocumento = new DetalleDocumento();
+
       }
     );
 
     this.detalleDocumento = new DetalleDocumento();
 
   }
+
+  volverAListado() {
+    this.verAumentarStock = false;
+    this.cargarProductos();
+  }
+
 
 }
 
