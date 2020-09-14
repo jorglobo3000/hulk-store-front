@@ -77,27 +77,7 @@
                             </mat-form-field>
                             <br>
 
-                            <mat-checkbox class="example-margin" [(ngModel)]="consumidorFinal" (change)="onConsumidorFinalCheckChange()">Consumidor final</mat-checkbox>
-                            <br>
-                            <mat-form-field appearance="standard" *ngIf="!consumidorFinal">
-                                <mat-label>Identificacion</mat-label>
-                                <input matInput placeholder="Identificacion" [(ngModel)]="persona.identificacion">
-                                <em class="material-icons" matSuffix>payment</em>
-                                <mat-hint></mat-hint>
-                            </mat-form-field>
-
-                            <br>
-                            <mat-form-field appearance="standard" *ngIf="!consumidorFinal">
-                                <mat-label>Nombre de usuario</mat-label>
-                                <input matInput placeholder="Username" [(ngModel)]="persona.username">
-                                <em class="material-icons" matSuffix>payment</em>
-                                <mat-hint></mat-hint>
-                            </mat-form-field>
-
-                            <br>
-                           
-
-                            <br>
+                               
                             <mat-form-field appearance="standard">
                                 <mat-label>Subtotal</mat-label>
                                 <input matInput placeholder="Subtotal" [disabled]="true" [(ngModel)]="carritoCompras.subtotal">
@@ -136,7 +116,10 @@
 
     <div class="contenedor">
 
-        <button mat-stroked-button color="primary" routerLink="/" (click)="comprar()" class="boton-comprar">Proceder con compra
+        <button mat-stroked-button color="primary" routerLink="/" (click)="comprar()" class="boton-comprar" *ngIf="data.usuario!=null">Proceder con compra
+            <em class="material-icons" matSuffix>done_all</em>
+        </button>
+        <button mat-stroked-button color="primary" routerLink="/login"  class="boton-comprar" *ngIf="data.usuario==null">Continuar
             <em class="material-icons" matSuffix>done_all</em>
         </button>
 

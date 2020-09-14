@@ -35,9 +35,9 @@ export class ProductoComponent implements OnInit {
   cantidad = 0;
 
   @ViewChild(MatPaginator) paginador: MatPaginator;
-  constructor(private productoService: ProductoService, 
-    public dialog: MatDialog, 
-    private _snackBar: MatSnackBar, 
+  constructor(private productoService: ProductoService,
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
     public data: DataServicio) { }
 
   ngOnInit(): void {
@@ -45,9 +45,9 @@ export class ProductoComponent implements OnInit {
       this.carrito.detalle = [];
     }
     this.dataSource = new MatTableDataSource<any>();
-    this.carrito.subtotal=0;
-    this.carrito.total=0;
-    this.carrito.total=0;
+    this.carrito.subtotal = 0;
+    this.carrito.total = 0;
+    this.carrito.total = 0;
     this.cargarProductos();
   }
 
@@ -75,14 +75,14 @@ export class ProductoComponent implements OnInit {
         if (stockProducto == 0) {
           this.openSnackBar(Constantes.MENSAJE_NO_STOCK_DISPONIBLE, "");
         }
-        else if (stockProducto>= this.cantidad) {
+        else if (stockProducto >= this.cantidad) {
           this.carrito.estado = Constantes.ESTADO_ACTIVO;
           this.carrito.tipoDocumento = Constantes.TIPO_DOCUMENTO_CARRITO;
           let detalle: DetalleDocumento = new DetalleDocumento();
           detalle.producto = elemento;
           detalle.cantidad = this.cantidad;
           detalle.estado = Constantes.ESTADO_ACTIVO;
-          
+
           detalle.subtotalProducto = elemento.precioVenta * this.cantidad;
           this.carrito.detalle.push(detalle);
           this.calcularTotales();
@@ -105,7 +105,7 @@ export class ProductoComponent implements OnInit {
       if (!(typeof result === 'undefined')) {
         this.cantidad = result;
         if (this.cantidad > 0) {
-          console.log("cantidad "+this.cantidad);
+          console.log("cantidad " + this.cantidad);
           this.anadirACarrito(elemento);
         }
       }
@@ -119,11 +119,11 @@ export class ProductoComponent implements OnInit {
   }
 
   verCarrito() {
-    this.carrito.subtotal=0;
-    this.carrito.iva=0;
-    this.carrito.total=0;
+    this.carrito.subtotal = 0;
+    this.carrito.iva = 0;
+    this.carrito.total = 0;
     this.data.carrito = this.carrito;
-    
+    this.data.ruta = '/carrito';
   }
 
   calcularTotales() {

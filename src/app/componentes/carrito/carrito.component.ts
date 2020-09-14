@@ -44,7 +44,7 @@ export class CarritoComponent implements OnInit, AfterViewInit {
   ];
 
 
-  constructor(private data: DataServicio, private personaServicio: PersonaService,
+  constructor(public data: DataServicio, private personaServicio: PersonaService,
     private documentoServicio: DocumentoService, private _snackBar: MatSnackBar,
     private router: Router) { }
 
@@ -52,7 +52,7 @@ export class CarritoComponent implements OnInit, AfterViewInit {
     if (this.data.carrito != null && this.data.carrito.detalle.length>0) {
       this.dataSource = new MatTableDataSource<any>();
       this.cargarDetalles();
-      this.cargarPersona();
+      //this.cargarPersona();
     }
     else{
       this.router.navigate(["/productos"]);
@@ -117,11 +117,12 @@ export class CarritoComponent implements OnInit, AfterViewInit {
     else {
       this.router.navigate(["/login"]);
     }
-    this.carritoCompras.persona = this.persona;
+    this.carritoCompras.persona = this.data.usuario;
     this.documentoServicio.realizarVentaACliente(this.carritoCompras).subscribe(
       (documento) => {
         if (documento != null) {
           this.openSnackBar("Compra realizada con exito", "");
+          this.router.navigate(["/"]);
         }
       }
     );

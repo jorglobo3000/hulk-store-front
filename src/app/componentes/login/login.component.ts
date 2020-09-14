@@ -4,7 +4,7 @@ import { PersonaService } from '../../servicio/persona.service';
 import { Persona } from '../../modelo/persona';
 import { Md5 } from 'md5-typescript';
 import { DataServicio } from '../../servicio/data.service';
-import {  Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   ocultar: boolean = true;
   constructor(private personaservicio: PersonaService, private dataServicio: DataServicio,
-  private router: Router) { }
+    private router: Router) { }
 
   ngOnInit(): void {
     console.log(Md5.init('administrador'));
@@ -32,13 +32,20 @@ export class LoginComponent implements OnInit {
 
       persona.username = this.username;
       persona.password = Md5.init(this.password);
+      this.password=null;
+      this.username=null;
       this.personaservicio.getLogin(persona).subscribe(
         (per) => {
-          this.dataServicio.usuario =new Persona();
-          this.dataServicio.usuario=per;
+          this.dataServicio.usuario = new Persona();
+          this.dataServicio.usuario = per;
           console.log("LOGIN ");
           console.log(per);
-          this.router.navigate(['']);
+          if (this.dataServicio.ruta == null) {
+            this.router.navigate(['']);
+          }
+          else {
+            this.router.navigate([this.dataServicio.ruta]);
+          }
 
         });
 
