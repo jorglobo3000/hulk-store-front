@@ -4,7 +4,7 @@
     <div class="contenido-centrado">
         <div class="titulo">
             <h1>Bienvenido a Hulk Store</h1>
-            <h3>Listado de productos disponibles</h3>
+            <h3>Listado de productos</h3>
         </div>
 
     </div>
@@ -17,12 +17,6 @@
         </button>
     </div>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" class="contenido-centrado">
-
-
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> No. </th>
-            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-        </ng-container>
 
 
         <ng-container matColumnDef="nombre">
@@ -61,47 +55,9 @@
     <mat-paginator [pageSize]="pageSize" showFirstLastButtons [pageSizeOptions]="[2, 5, 10, 20]" class="contenido-centrado">
     </mat-paginator>
 
-
-
-    <div class="contenido-centrado" *ngIf="!esAdministrador">
-        <div class="totales">
-            <h2>Totales</h2>
-            <table style="float: right">
-                <tr>
-                    <td>
-                        <h3>Subtotal:</h3>
-                    </td>
-                    <td>
-                        <h3 style="padding-left: 5em"> {{carrito.subtotal}}</h3>
-                    </td>
-
-                </tr>
-
-                <tr>
-                    <td>
-                        <h3>Iva:</h3>
-                    </td>
-                    <td>
-                        <h3 style="padding-left: 5em"> {{carrito.iva}}</h3>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>
-                        <h3>Total:</h3>
-                    </td>
-                    <td>
-                        <h3 style="padding-left: 5em"> {{carrito.total}}</h3>
-                    </td>
-
-                </tr>
-
-            </table>
-        </div>
-
-    </div>
 </div>
-<button mat-stroked-button color="primary" style="position: absolute; top: 5em; right:  10px;" routerLink="/carrito" (click)="verCarrito()"
-    *ngIf="!esAdministrador">Carrito de compras
+<button mat-raised-button color="primary" style="position: absolute; top: 5em; right:  10px;"
+ routerLink="/carrito" (click)="verCarrito()"
+    *ngIf="!esAdministrador">{{nombreBotonCarrito}}
     <em class="material-icons">shopping_cart</em>
 </button>

@@ -14,9 +14,9 @@
                         {{producto.nombre}}
                     </mat-option>
                 </mat-select>
-                <em class="material-icons" matSuffix>article</em>
+
             </mat-form-field>
-            <button mat-stroked-button color="primary" (click)="cargarKardex()">Cargar kardex
+            <button mat-raised-button color="primary" (click)="cargarKardex()">Generar
                 <em class="material-icons">storage</em>
             </button>
         </div>
@@ -28,7 +28,7 @@
                         <mat-form-field appearance="standard">
                             <mat-label>Articulo</mat-label>
                             <input matInput placeholder="Articulo" [disabled]="true" [(ngModel)]="producto.nombre">
-                            <em class="material-icons" matSuffix>attach_money</em>
+
                             <mat-hint></mat-hint>
                         </mat-form-field>
                     </td>
@@ -36,7 +36,7 @@
                         <mat-form-field appearance="standard">
                             <mat-label>Stock</mat-label>
                             <input matInput placeholder="Stock" [disabled]="true" [(ngModel)]="producto.stock">
-                            <em class="material-icons" matSuffix>attach_money</em>
+
                             <mat-hint></mat-hint>
                         </mat-form-field>
                     </td>
@@ -44,7 +44,15 @@
                         <mat-form-field appearance="standard">
                             <mat-label>Metodo</mat-label>
                             <input matInput placeholder="Metodo" [disabled]="true" value="Promedio ponderado">
-                            <em class="material-icons" matSuffix>settings</em>
+
+                            <mat-hint></mat-hint>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field appearance="standard">
+                            <mat-label>Categoria</mat-label>
+                            <input matInput placeholder="Categoria" [disabled]="true" [(ngModel)]="producto.categoria.nombre">
+
                             <mat-hint></mat-hint>
                         </mat-form-field>
                     </td>
@@ -78,52 +86,61 @@
 
         <!--columnas para entradas-->
         <ng-container matColumnDef="ecantidad">
-            <th mat-header-cell *matHeaderCellDef> SALIDAS <br> Cantidad  </th>
+            <th mat-header-cell *matHeaderCellDef> SALIDAS
+                <br> Cantidad </th>
             <td mat-cell *matCellDef="let element">
                 <span>{{element.tipoMovimiento=='EGR' ? element.cantidad : ''}}</span>
             </td>
         </ng-container>
 
         <ng-container matColumnDef="evunitario">
-            <th mat-header-cell *matHeaderCellDef>  SALIDAS <br> Valor unitario </th>
+            <th mat-header-cell *matHeaderCellDef> SALIDAS
+                <br> Valor unitario </th>
             <td mat-cell *matCellDef="let element"> {{element.tipoMovimiento=='EGR' ? element.precioUnitario: ''}} </td>
         </ng-container>
 
         <ng-container matColumnDef="etotal">
-            <th mat-header-cell *matHeaderCellDef> SALIDAS <br> Valor total </th>
+            <th mat-header-cell *matHeaderCellDef> SALIDAS
+                <br> Valor total </th>
             <td mat-cell *matCellDef="let element"> {{element.tipoMovimiento=='EGR' ? (element.precioUnitario * element.cantidad): ''}} </td>
         </ng-container>
         <!--columnas para salidas-->
 
         <ng-container matColumnDef="scantidad">
-            <th mat-header-cell *matHeaderCellDef>  INGRESOS <br>Cantidad </th>
+            <th mat-header-cell *matHeaderCellDef> INGRESOS
+                <br>Cantidad </th>
             <td mat-cell *matCellDef="let element"> {{element.tipoMovimiento=='ING' ? element.cantidad: ''}} </td>
         </ng-container>
 
         <ng-container matColumnDef="svunitario">
-            <th mat-header-cell *matHeaderCellDef>INGRESOS <br> Valor unitario </th>
+            <th mat-header-cell *matHeaderCellDef>INGRESOS
+                <br> Valor unitario </th>
             <td mat-cell *matCellDef="let element"> {{element.tipoMovimiento=='ING' ? element.precioUnitario: ''}} </td>
         </ng-container>
 
         <ng-container matColumnDef="stotal">
-            <th mat-header-cell *matHeaderCellDef> INGRESOS <br>Valor total </th>
+            <th mat-header-cell *matHeaderCellDef> INGRESOS
+                <br>Valor total </th>
             <td mat-cell *matCellDef="let element"> {{element.tipoMovimiento=='ING' ? (element.precioUnitario * element.cantidad):''}} </td>
         </ng-container>
 
         <!--columnas para saldos-->
 
         <ng-container matColumnDef="excantidad">
-            <th mat-header-cell *matHeaderCellDef>EXISTENCIAS <br> Cantidad </th>
+            <th mat-header-cell *matHeaderCellDef>EXISTENCIAS
+                <br> Cantidad </th>
             <td mat-cell *matCellDef="let element"> {{element.saldoCantidad}} </td>
         </ng-container>
 
         <ng-container matColumnDef="exvunitario">
-            <th mat-header-cell *matHeaderCellDef>EXISTENCIAS <br> Valor unitario </th>
+            <th mat-header-cell *matHeaderCellDef>EXISTENCIAS
+                <br> Valor unitario </th>
             <td mat-cell *matCellDef="let element"> {{element.saldoPrecioUnitario}} </td>
         </ng-container>
 
         <ng-container matColumnDef="extotal">
-            <th mat-header-cell *matHeaderCellDef>EXISTENCIAS <br> Valor total </th>
+            <th mat-header-cell *matHeaderCellDef>EXISTENCIAS
+                <br> Valor total </th>
             <td mat-cell *matCellDef="let element"> {{element.saldoPrecioUnitario * element.saldoCantidad}} </td>
         </ng-container>
 
@@ -132,8 +149,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-    <mat-paginator [pageSize]="pageSize" showFirstLastButtons [pageSizeOptions]="[2, 5, 10, 20]" 
-    class="contenido-centrado" *ngIf="producto">
+    <mat-paginator [pageSize]="pageSize" showFirstLastButtons [pageSizeOptions]="[2, 5, 10, 20]" class="contenido-centrado" *ngIf="producto">
     </mat-paginator>
 
 

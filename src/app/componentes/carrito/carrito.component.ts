@@ -8,6 +8,8 @@ import { Persona } from '../../modelo/persona';
 import { DocumentoService } from '../../servicio/documento.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Constantes } from '../../util/constantes';
+import { ProductoService } from '../../servicio/producto.service';
 
 interface FormaPago {
   value: string;
@@ -24,7 +26,7 @@ export class CarritoComponent implements OnInit, AfterViewInit {
 
   carritoCompras: Documento = null;
 
-  displayedColumns: string[] = ['id', 'producto', 'cantidad', 'precio', 'subtotal', 'acciones'];
+  displayedColumns: string[] = ['producto', 'cantidad', 'precio', 'subtotal', 'acciones'];
   dataSource;
   pageSize = 2;
   length = 0;
@@ -42,34 +44,28 @@ export class CarritoComponent implements OnInit, AfterViewInit {
     { value: 'CREDITO', viewValue: 'Tarjeta de credito' },
     { value: 'CHEQUE', viewValue: 'Cheque' }
   ];
-  volverProductos:boolean=false;
+  volverProductos: boolean = false;
 
 
   constructor(public data: DataServicio, private personaServicio: PersonaService,
     private documentoServicio: DocumentoService, private _snackBar: MatSnackBar,
-    private router: Router) { }
+    private router: Router,
+    private productoService: ProductoService) { }
 
   ngOnInit(): void {
-    /**if (this.data.carrito != null && this.data.carrito.detalle.length > 0) {
-      this.dataSource = new MatTableDataSource<any>();
-      this.cargarDetalles();
-      //this.cargarPersona();
-    }
-    else {
-      this.router.navigate(["/productos"]);
-    }*/
+
     this.validarCarrito();
   }
 
-  validarCarrito(){
+  validarCarrito() {
     if (this.data.carrito != null && this.data.carrito.detalle.length > 0) {
       this.dataSource = new MatTableDataSource<any>();
       this.cargarDetalles();
-      this.volverProductos=false;
+      this.volverProductos = false;
       //this.cargarPersona();
     }
     else {
-      this.volverProductos=true;
+      this.volverProductos = true;
       //this.router.navigate(["/productos"]);
     }
   }
@@ -135,6 +131,7 @@ export class CarritoComponent implements OnInit, AfterViewInit {
     this.documentoServicio.realizarVentaACliente(this.carritoCompras).subscribe(
       (documento) => {
         if (documento != null) {
+          this.data.carrito = null;
           this.openSnackBar("Compra realizada con exito", "");
           this.router.navigate(["/"]);
         }
@@ -189,14 +186,31 @@ export class CarritoComponent implements OnInit, AfterViewInit {
 
   aumentarCantidad(elemento) {
     elemento.cantidad += 1;
-    elemento.subtotal = elemento.cantidad * elemento.producto.precioVenta;
-    this.calcularTotales();
+    console.log(elemento);
+    this.productoService.getStock(elemento.producto.id).subscribe(
+      (stockProducto) => {
+        if (stockProducto == 0) {
+          this.openSnackBar(Constantes.MENSAJE_NO_STOCK_DISPONIBLE, "");
+        }
+        else if (stockProducto >= elemento.cantidad) {
+          console.log("deberia calcular");
+          elemento.subtotalProducto = elemento.cantidad * elemento.producto.precioVenta;
+          this.calcularTotales();
+        }
+        else {
+          console.log("entra a insuficneintes");
+          elemento.cantidad = elemento.cantidad - 1;
+          this.openSnackBar(Constantes.MENSAJE_INSUFICIENTE_STOCK_DISPONIBLE + stockProducto, "");
+        }
+      });
+
   }
   disminuirCantidad(elemento) {
     elemento.cantidad = elemento.cantidad - 1;
     if (elemento.cantidad <= 0) {
       elemento.cantidad = 1;
     }
+    elemento.subtotalProducto = elemento.cantidad * elemento.producto.precioVenta;
     this.calcularTotales();
     //validar stocK;
   }

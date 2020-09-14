@@ -11,7 +11,6 @@ import { Constantes } from '../../util/constantes';
 
 
 
-
 export interface DialogData {
   cantidad: number;
   nombre: string;
@@ -25,7 +24,7 @@ export interface DialogData {
 export class ProductoComponent implements OnInit {
 
 
-  displayedColumns: string[] = ['id', 'nombre', 'stock', 'precio', 'anadir'];
+  displayedColumns: string[] = ['nombre', 'stock', 'precio', 'anadir'];
   dataSource;
   pageSize = 2;
   length = 0;
@@ -34,6 +33,7 @@ export class ProductoComponent implements OnInit {
   carrito: Documento = new Documento();
   esAdministrador: boolean = false;
   cantidad = 0;
+  nombreBotonCarrito: string = null;
 
   @ViewChild(MatPaginator) paginador: MatPaginator;
   constructor(private productoService: ProductoService,
@@ -42,8 +42,13 @@ export class ProductoComponent implements OnInit {
     public data: DataServicio) { }
 
   ngOnInit(): void {
+
     if (this.data.usuario != null) {
       this.esAdministrador = this.data.usuario.tipoPersona == 'ADM';
+    }
+    this.carrito = this.data.carrito;
+    if (this.carrito == null) {
+      this.carrito = new Documento();
     }
     if (this.carrito.detalle == null) {
       this.carrito.detalle = [];
@@ -52,7 +57,14 @@ export class ProductoComponent implements OnInit {
     this.carrito.subtotal = 0;
     this.carrito.total = 0;
     this.carrito.total = 0;
+    this.calcularTotales();
     this.cargarProductos();
+    this.armarNombreBotonCarrito();
+    console.log(this.nombreBotonCarrito);
+  }
+
+  armarNombreBotonCarrito() {
+    this.nombreBotonCarrito = this.carrito.detalle.length.toString() + " Items | $ " + this.carrito.subtotal;
   }
 
   cargarProductos() {
@@ -74,6 +86,20 @@ export class ProductoComponent implements OnInit {
   }
 
   anadirACarrito(elemento) {
+    console.log(elemento);
+    console.log(this.carrito.detalle);
+    let existe: boolean = false;
+    for (let item of this.carrito.detalle) {
+      if (item.producto == elemento) {
+        existe = true;
+      }
+    }
+
+    if (existe) {
+
+      this.openSnackBar("Articulo ya existe en carrito de compras", "");
+      return;
+    }
     this.cantidad = 1;
     this.productoService.getStock(elemento.id).subscribe(
       (stockProducto) => {
@@ -91,6 +117,7 @@ export class ProductoComponent implements OnInit {
           detalle.subtotalProducto = elemento.precioVenta * this.cantidad;
           this.carrito.detalle.push(detalle);
           this.calcularTotales();
+          this.armarNombreBotonCarrito();
           this.openSnackBar(Constantes.MENSAJE_PRODUCTO_ANADIDO_CARRITO, "");
         }
         else {

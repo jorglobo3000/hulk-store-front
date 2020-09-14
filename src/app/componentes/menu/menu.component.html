@@ -1,11 +1,13 @@
 <div class="toolbar" role="banner">
 
-    <button mat-stroked-button color="primary" routerLink="/productos" routerLinkActive="active">Productos</button>
-    <button mat-stroked-button color="primary" routerLink="/kardex" *ngIf="administrador">Kardex</button>
-    <button mat-stroked-button color="primary" *ngIf="administrador">Personas</button>
+    <button mat-flat-button color="primary" routerLink="/productos" routerLinkActive="active">Productos</button>
+    <button mat-flat-button color="primary" routerLink="/kardex" *ngIf="administrador">Kardex</button>
+    <button mat-flat-button color="primary" *ngIf="administrador">Personas</button>
 
-    <button mat-stroked-button color="primary" routerLink="/login" *ngIf="!administrador">Ingresar</button>
+    <div style="float: right;">
+        <button mat-flat-button color="primary" routerLink="/login" *ngIf="usuario=='Invitado'">Ingresar</button>
 
-    <label>{{usuario}}</label>
-    <button mat-stroked-button color="primary" routerLink="/" *ngIf="usuario!='Invitado'" (click)="logout()">Salir</button>
+        <label>{{usuario}}</label>
+        <button mat-flat-button color="primary" routerLink="/" *ngIf="usuario!='Invitado'" (click)="logout()">Salir</button>
+    </div>
 </div>

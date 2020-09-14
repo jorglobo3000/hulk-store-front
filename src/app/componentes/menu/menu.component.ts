@@ -18,7 +18,7 @@ export class MenuComponent implements OnInit {
       this.usuario = 'Invitado';
     } else {
       this.usuario = this.dataServicio.usuario.nombre;
-      this.administrador=true;
+      this.administrador=this.dataServicio.usuario.tipoPersona=='ADM';
     }
     console.log(this.usuario);
   }
