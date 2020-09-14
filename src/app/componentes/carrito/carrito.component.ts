@@ -118,7 +118,6 @@ export class CarritoComponent implements OnInit, AfterViewInit {
     this.personaServicio.getPersonaPorIdentificacion(this.persona.identificacion).subscribe(
       (persona) => {
         this.persona = persona;
-        console.log("persona: " + this.persona);
       });
 
   }
@@ -140,7 +139,6 @@ export class CarritoComponent implements OnInit, AfterViewInit {
         }
       }
     );
-    console.log("compraremos");
   }
 
   openSnackBar(message: string, action: string) {
@@ -150,11 +148,7 @@ export class CarritoComponent implements OnInit, AfterViewInit {
   }
 
   borrarItem(elemento) {
-    console.log(this.carritoCompras.detalle);
-
     this.removeItemArray(this.carritoCompras.detalle, elemento);
-    console.log(this.carritoCompras.detalle);
-
     this.cargarDataSourcePaginador();
     this.calcularTotales();
     this.openSnackBar("Item borrado con éxito", "");
@@ -189,19 +183,16 @@ export class CarritoComponent implements OnInit, AfterViewInit {
 
   aumentarCantidad(elemento) {
     elemento.cantidad += 1;
-    console.log(elemento);
     this.productoService.getStock(elemento.producto.id).subscribe(
       (stockProducto) => {
         if (stockProducto == 0) {
           this.openSnackBar(Constantes.MENSAJE_NO_STOCK_DISPONIBLE, "");
         }
         else if (stockProducto >= elemento.cantidad) {
-          console.log("deberia calcular");
           elemento.subtotalProducto = elemento.cantidad * elemento.producto.precioVenta;
           this.calcularTotales();
         }
         else {
-          console.log("entra a insuficneintes");
           elemento.cantidad = elemento.cantidad - 1;
           this.openSnackBar(Constantes.MENSAJE_INSUFICIENTE_STOCK_DISPONIBLE + stockProducto, "");
         }
@@ -215,7 +206,7 @@ export class CarritoComponent implements OnInit, AfterViewInit {
     }
     elemento.subtotalProducto = elemento.cantidad * elemento.producto.precioVenta;
     this.calcularTotales();
-    //validar stocK;
+
   }
 
 }

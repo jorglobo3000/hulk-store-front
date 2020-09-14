@@ -64,7 +64,6 @@ export class ProductoComponent implements OnInit {
     this.calcularTotales();
     this.cargarProductos();
     this.armarNombreBotonCarrito();
-    console.log(this.nombreBotonCarrito);
   }
 
   armarNombreBotonCarrito() {
@@ -91,8 +90,6 @@ export class ProductoComponent implements OnInit {
   }
 
   anadirACarrito(elemento) {
-    console.log(elemento);
-    console.log(this.carrito.detalle);
     let existe: boolean = false;
     for (let item of this.carrito.detalle) {
       if (item.producto == elemento) {
@@ -142,7 +139,6 @@ export class ProductoComponent implements OnInit {
       if (!(typeof result === 'undefined')) {
         this.cantidad = result;
         if (this.cantidad > 0) {
-          console.log("cantidad " + this.cantidad);
           this.anadirACarrito(elemento);
         }
       }

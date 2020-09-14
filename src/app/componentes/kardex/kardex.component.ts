@@ -48,20 +48,14 @@ export class KardexComponent implements OnInit {
     this.kardexServicio.getMovimientos(this.idProducto).subscribe(
       (movimientos) => {
         this.dataSource = new MatTableDataSource<Kardex>(movimientos);
-        console.log(movimientos);
         this.paginador.length = movimientos.length;
         this.dataSource.paginator = this.paginador;
-       console.log(this.dataSource != null);
-       console.log(this.dataSource.length>0);
-       console.log(this.dataSource.length);
-       console.log(movimientos.length);
+
         if (movimientos!= null && movimientos.length>0) {
-          console.log("ingresa a if");
           this.length = movimientos.length;
           this.existenRegistros = true;
         }
         else {
-          console.log("ingresa a else");
           this.openSnackBar("No existen movimientos para el producto","");
           this.existenRegistros = false;
         }

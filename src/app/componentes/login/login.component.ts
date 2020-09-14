@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    console.log(Md5.init('administrador'));
+
   }
 
   submit() {
@@ -32,14 +32,12 @@ export class LoginComponent implements OnInit {
 
       persona.username = this.username;
       persona.password = Md5.init(this.password);
-      this.password=null;
-      this.username=null;
+      this.password = null;
+      this.username = null;
       this.personaservicio.getLogin(persona).subscribe(
         (per) => {
           this.dataServicio.usuario = new Persona();
           this.dataServicio.usuario = per;
-          console.log("LOGIN ");
-          console.log(per);
           if (this.dataServicio.ruta == null) {
             this.router.navigate(['']);
           }
@@ -48,9 +46,6 @@ export class LoginComponent implements OnInit {
           }
 
         });
-
-      console.log("aqui busca en la base el usuario y lo pasa al servicio data");
-      console.log(this.dataServicio.usuario);
     }
     else {
       this.error = "Los campos deben ser llenados";
