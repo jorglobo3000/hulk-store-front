@@ -29,6 +29,18 @@ export class PersonaService {
     );
   }
 
+  registrarse(persona: Persona): Observable<Persona> {
+    let headers = new HttpHeaders().set('Content-Type', "application/json");
+    return this.http.post<Persona>(Constantes.URL_BASE_API + Constantes.URL_PERSONAS + "guardar", persona, { headers: headers }).pipe(
+      catchError(
+        e => {
+          Swal.fire('Error al guardar', e.error.mensaje, 'error');
+          return throwError(e);
+        }
+      )
+    );
+  }
+
   getPorTipo(tipo: string): Observable<Persona[]> {
     return this.http.get<Persona[]>(Constantes.URL_BASE_API + Constantes.URL_PERSONAS + "listar-tipo/" + tipo);
   }

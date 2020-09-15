@@ -1,4 +1,4 @@
-<div class="contenedor">
+<div class="contenedor" *ngIf="!verRegistrar">
 
     <mat-card>
         <mat-card-title>
@@ -10,7 +10,7 @@
                 <mat-form-field appearance="standard">
                     <mat-label>Nombre de usuario</mat-label>
                     <input type="text" matInput placeholder="Username" [(ngModel)]="username">
-                    <em class="material-icons" matSuffix>payment</em>
+                    <em class="material-icons" matSuffix>android</em>
                     <mat-hint></mat-hint>
                 </mat-form-field>
             </p>
@@ -37,7 +37,7 @@
 
             </div>
             <div class="button">
-                <button mat-raised-button >
+                <button mat-raised-button (click)="iniciarRegistro()">
                     <em class="material-icons">how_to_reg</em>
                     <label>Registrarse</label>
                 </button>
@@ -45,5 +45,69 @@
 
         </mat-card-content>
     </mat-card>
+
+</div>
+
+<div class="contenedor" *ngIf="verRegistrar">
+    <h2>Nuevo usuario</h2>
+    <h4>Llene los campos </h4>
+    <div>
+        <mat-form-field appearance="standard">
+            <mat-label>Identificación</mat-label>
+            <input type="number" matInput placeholder="Identificación" [(ngModel)]="persona.identificacion">
+            <em class="material-icons" matSuffix>assignment_ind</em>
+            <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard" >
+            <mat-label>Nombre</mat-label>
+            <input type="text" matInput placeholder="Nombre" [(ngModel)]="persona.nombre">
+            <em class="material-icons" matSuffix>contacts</em>
+            <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard">
+            <mat-label>Telefono</mat-label>
+            <input type="number" matInput placeholder="telefono" [(ngModel)]="persona.telefono">
+            <em class="material-icons" matSuffix>add_ic_call</em>
+            <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput placeholder="Email" [(ngModel)]="persona.correoElectronico">
+            <em class="material-icons" matSuffix>contact_mail</em>
+            <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Dirección</mat-label>
+            <textarea matInput [(ngModel)]="persona.direccion"></textarea>
+            <em class="material-icons" matSuffix>location_on</em>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard">
+            <mat-label>Username</mat-label>
+            <input type="text" matInput placeholder="username" [(ngModel)]="persona.username">
+            <em class="material-icons" matSuffix>android</em>
+            <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Contraseña</mat-label>
+            <input type="password" matInput placeholder="Password" [(ngModel)]="password" [type]="ocultar ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="ocultar = !ocultar" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="ocultar">
+                <em class="material-icons" matSuffix>{{ocultar ? 'visibility_off' : 'visibility'}}</em>
+            </button>
+        </mat-form-field>
+        <div class="button">
+            <button mat-raised-button (click)="registrar()">
+                <em class="material-icons">how_to_reg</em>
+                <label>Guardar</label>
+            </button>
+        </div>
+
+
+    </div>
 
 </div>

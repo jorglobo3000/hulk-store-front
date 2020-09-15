@@ -29,7 +29,7 @@ export class CarritoComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['producto', 'cantidad', 'precio', 'subtotal', 'acciones'];
   dataSource;
-  pageSize = 2;
+  pageSize = 5;
   length = 0;
   currentPage: number = 0;
   existenRegistros: boolean = false;

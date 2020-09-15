@@ -27,7 +27,7 @@ export class ProductoComponent implements OnInit {
 
   displayedColumns: string[] = ['nombre', 'stock', 'precio', 'anadir'];
   dataSource;
-  pageSize = 2;
+  pageSize = 5;
   length = 0;
   currentPage: number = 0;
   existenRegistros: boolean = false;
@@ -64,6 +64,7 @@ export class ProductoComponent implements OnInit {
     this.calcularTotales();
     this.cargarProductos();
     this.armarNombreBotonCarrito();
+    this.data.ruta = '/productos';
   }
 
   armarNombreBotonCarrito() {
@@ -178,7 +179,7 @@ export class ProductoComponent implements OnInit {
 
   comprarProducto() {
 
-    
+
 
     this.documentoServicio.realizarCompraAProveedor(this.detalleDocumento).subscribe(
       (detalleDocumento) => {
