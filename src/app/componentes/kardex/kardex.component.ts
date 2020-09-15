@@ -18,7 +18,7 @@ export class KardexComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'fecha', 'detalle', 'ecantidad', 'evunitario', 'etotal', 'scantidad', 'svunitario', 'stotal', 'excantidad', 'exvunitario', 'extotal'];
   dataSource;
-  pageSize = 2;
+  pageSize = 5;
   length = 0;
   currentPage: number = 0;
   existenRegistros: boolean = false;

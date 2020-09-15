@@ -9,9 +9,7 @@
 
     </div>
     <div class="contenido-centrado">
-        <button mat-stroked-button color="primary" routerLink="/carrito" (click)="verCarrito()" *ngIf="esAdministrador && !verAumentarStock">Nuevo producto
-            <em class="material-icons">article</em>
-        </button>
+        
         <button mat-stroked-button color="primary" (click)="aumentarStock()" *ngIf="esAdministrador && !verAumentarStock">Aumentar stock
             <em class="material-icons">storage</em>
         </button>
